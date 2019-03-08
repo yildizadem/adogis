@@ -1,0 +1,14 @@
+{
+  "name": "adogis",
+  "version": "0.0.1",
+  "description": "An easy way to use Esri JS API.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Adem YILDIZ",
+  "license": "ISC",
+  "dependencies": {
+    "esri-loader": "^2.6.0"
+  }
+}
