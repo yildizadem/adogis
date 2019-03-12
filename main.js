@@ -1,6 +1,6 @@
 import { loadModules } from 'esri-loader';
 
-let adogis = function () {
+let Adogis = function () {
     this.map = null;
     this.mapDiv = null;
     this.basemaps = [];
@@ -10,23 +10,23 @@ let adogis = function () {
             async: true,
             packages: [
                 {
-                    location: location.pathname.replace(/\/[^/]+$/, "") + "/src/js/libs",
+                    location: location.pathname.replace(/\/[^/]+$/, "") + "/node_modules/adogis/libs",
                     name: 'libs'
                 }
             ]
         }
     };
 }
-adogis.prototype.setBasemaps = function (basemaps) {
+Adogis.prototype.setBasemaps = function (basemaps) {
     this.basemaps = basemaps;
 };
-adogis.prototype.reloadMap = function () {
+Adogis.prototype.reloadMap = function () {
     this.map.destroy();
     this.map = null;
     this.mapDiv = null;
     this.createMap();
 }
-adogis.prototype.createMap = function () {
+Adogis.prototype.createMap = function () {
     let self = this;
     this.mapDiv = $(`<div id="mapDiv"></div>`);
     $('body').append(this.mapDiv);
@@ -49,4 +49,4 @@ adogis.prototype.createMap = function () {
         });
 }
 
-export default adogis;
+export default Adogis;
