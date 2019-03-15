@@ -1,6 +1,6 @@
 {
   "name": "adogis",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "An easy way to use Esri JS API.",
   "main": "main.js",
   "scripts": {
@@ -16,7 +16,7 @@
     "ArcGIS",
     "JavaScript"
   ],
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "esri-loader": "^2.6.0",
     "jquery": "^3.3.1"
