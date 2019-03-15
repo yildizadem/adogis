@@ -1,6 +1,6 @@
 import { loadModules } from 'esri-loader';
 
-let Adogis = function () {
+let Adogis = function (version, layers) {
     this.map = null;
     this.mapDiv = null;
     this.layers = layers || [];
