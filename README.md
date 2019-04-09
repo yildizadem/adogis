@@ -23,6 +23,9 @@ let adogis = new Adogis("3.27", [{
 }]);
 adogis.createMap();
 
+// for change basemap
+adogis.setBasemap("topo");
+
 // for layer visibility change
 adogis.hideLayer("test");
 adogis.showLayer("test");
@@ -76,6 +79,29 @@ adogis.loadModules(["esri/SomeModuleOne", "esri/SomeModuleTwo"], (modules) => {
 |layer-added|fires when layer added complete|
 |layers-added|fires when layers added complete|
 |basemap-change|fires when basemap change|
+
+### Basemaps
+|Name|Summary|
+|----|----|
+|dark-gray|The Dark Gray Canvas basemap is designed to be used as a soothing background map for overlaying and focus attention on other map layers. https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer.|
+|dark-gray-vector|The Dark Gray Canvas [v2] vector tile layer provides a detailed basemap for the world featuring a neutral background style with minimal colors, labels, and features.|
+|gray|The Light Gray Canvas basemap is designed to be used as a neutral background map for overlaying and emphasizing other map layers. https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer.|
+|gray-vector|The Light Gray Canvas [v2] vector tile layer provides a detailed basemap for the world featuring a neutral background style with minimal colors, labels, and features.|
+|hybrid|The World Imagery with Labels map is a detailed imagery map layer and labels that is designed to be used as a basemap for various maps and applications: https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer.|
+|national-geographic|The National Geographic basemap is designed to be used as a general reference map for informational and educational purposes: https://services.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer.|
+|oceans|The Ocean Basemap is designed to be used as a basemap by marine GIS professionals and as a reference map by anyone interested in ocean data. https://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Reference/MapServer https://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Base/MapServer.|
+|osm|The OpenStreetMap is a community map layer that is designed to be used as a basemap for various maps and applications.|
+|satellite|The World Imagery map is a detailed imagery map layer that is designed to be used as a basemap for various maps and applications: https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer.|
+|streets|The Streets basemap presents a multiscale street map for the world: https://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer.|
+|streets-navigation-vector|The World Navigation Map [v2] vector tile layer provides a detailed basemap for the world featuring a custom navigation map style.|
+|streets-night-vector|The World Street Map (Night) [v2] vector tile layer provides a detailed basemap for the world featuring a custom "night time" street map style.|
+|streets-relief-vector|The World Street Map (with Relief) [v2] vector tile layer provides a detailed basemap for the world featuring a classic Esri street map style designed for use with a relief map.|
+|streets-vector|The World Street Map [v2] vector tile layer provides a detailed basemap for the world featuring a classic Esri street map style.|
+|terrain|The Terrain with Labels basemap is designed to be used to overlay and emphasize other thematic map layers. https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Reference_Overlay/MapServer https://services.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer.|
+|topo|The Topographic map includes boundaries, cities, water features, physiographic features, parks, landmarks, transportation, and buildings: https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer.|
+|topo-vector|The World Topographic Map [v2] vector tile layer provides a detailed basemap for the world featuring a classic Esri topographic map style designed for use with a relief map.|
+
+Source: https://developers.arcgis.com/javascript/3/jsapi/esri.basemaps-amd.html 
 
 ## Requirements
 
