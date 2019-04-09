@@ -40,6 +40,33 @@ adogis.removeLayer("test");
 
 // for events
 adogis.on("map-load", function(e){...});
+
+// for add/remove marker
+adogis.addMarker({
+    x: 29, // required
+    y: 41, // required
+    spatialReference: new SpatialReference(...), // optional
+    markerUrl: "somefolder/marker.png", // optional
+    markerWidth: 50, // optional
+    markerHeight: 50, // optional
+    attributes: {
+        ...
+    }, // optional
+    infoWindow: {
+        title: "", // required
+        content: "" // required
+    } // optional
+}, (marker) => {
+    ...
+});
+
+adogis.removeMarker(marker);
+
+// for load any modules
+adogis.loadModules(["esri/SomeModuleOne", "esri/SomeModuleTwo"], (modules) => {
+    let someModuleOne = new modules.SomeModuleOne(...);
+    let someModuleTwo = new modules.SomeModuleTwo(...);
+});
 ```
 ### Events
 
@@ -56,3 +83,5 @@ This repo has dependencies on the following repos.
 
 * [esri-loader](https://github.com/Esri/esri-loader)
 * [jquery](https://jquery.com/)
+
+![Demo Image](/img/demo-image.PNG)

@@ -43,6 +43,36 @@ Adogis.prototype.destroyMap = function () {
     this.mapDiv = null;
 };
 
+Adogis.prototype.addMarker = function (params, callback) {
+    let self = this;
+    let markerUrl = params.markerUrl || location.pathname.replace(/\/[^/]+$/, "") + "/node_modules/adogis/img/locationMarker.png";
+    let x, y;
+    if (params.x) {
+        x = params.x;
+    } else throw Error("x parameter is required");
+    if (params.y) {
+        y = params.y;
+    } else throw Error("y parameter is required");
+    this.loadModules([
+        "esri/symbols/PictureMarkerSymbol",
+        "esri/geometry/Point",
+        "esri/SpatialReference",
+        "esri/graphic", "esri/InfoTemplate"],
+        function ({ PictureMarkerSymbol, Point, Graphic, SpatialReference, InfoTemplate }) {
+            let pictureMarkerSymbol = new PictureMarkerSymbol(markerUrl, params.markerWidth || 25, params.markerHeight || 25);
+            let point = new Point(x, y, params.spatialReference || new SpatialReference({ wkid: 4326 }));
+            let graphic = new Graphic(point, pictureMarkerSymbol);
+            params.attributes && graphic.setAttributes(params.attributes);
+            params.infoWindow && graphic.setInfoTemplate(new InfoTemplate(params.infoWindow.title, params.infoWindow.content));
+            self.map.graphics.add(graphic);
+            callback && callback(graphic);
+        });
+};
+
+Adogis.prototype.removeMarker = function(marker){
+    this.map.graphics.remove(marker);
+};
+
 Adogis.prototype.hideLayer = function (layerId) {
     this.map.getLayer(layerId).hide();
 };
