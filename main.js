@@ -1,6 +1,7 @@
 import { loadModules } from 'esri-loader';
 
-let Adogis = function ({ version, layers, mapDivId, basemap, center }) {
+let Adogis = function (params) {
+    let { version, layers, mapDivId, basemap, center } = params || {};
     this.map = null;
     this.mapDiv = mapDivId ? $(`#${mapDivId}`) : null;
     this.layers = layers || [];
