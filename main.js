@@ -1,10 +1,12 @@
 import { loadModules } from 'esri-loader';
 
-let Adogis = function (version, layers) {
+let Adogis = function ({ version, layers, mapDivId, basemap, center }) {
     this.map = null;
-    this.mapDiv = null;
+    this.mapDiv = mapDivId ? $(`#${mapDivId}`) : null;
     this.layers = layers || [];
-    this.version = version || "3.27";
+    this.version = version || "3.28";
+    this.defaultBasemap = basemap || "osm";
+    this.defaultCenter = center || [29, 41];
     this.esriOptions = {
         url: `https://js.arcgis.com/${this.version}/`,
         dojoConfig: {
@@ -69,7 +71,7 @@ Adogis.prototype.addMarker = function (params, callback) {
         });
 };
 
-Adogis.prototype.removeMarker = function(marker){
+Adogis.prototype.removeMarker = function (marker) {
     this.map.graphics.remove(marker);
 };
 
@@ -96,14 +98,18 @@ Adogis.prototype.removeLayer = function (layerId) {
 Adogis.prototype.createMap = function () {
     let self = this;
     $('head link[rel="stylesheet"]').first().before(`<link rel="stylesheet" href="https://js.arcgis.com/${this.version}/esri/css/esri.css">`);
-    this.mapDiv = $(`<div id="mapDiv"></div>`);
-    $('body').append(this.mapDiv);
+    if (!this.mapDiv) {
+        this.mapDiv = $(`<div id="mapDiv"></div>`);
+        $('body').append(this.mapDiv);
+    }
     this.loadModules(['esri/map', 'libs/layers/layerFactory'], function ({ Map, LayerFactory }) {
         self.map = new Map(self.mapDiv[0].id, {
             zoom: 11,
             logo: false,
             slider: true,
-            sliderPosition: "bottom-right"
+            sliderPosition: "bottom-right",
+            basemap: self.defaultBasemap,
+            center: self.defaultCenter
         });
         let layers = [];
         self.layers.forEach((layerItem) => {

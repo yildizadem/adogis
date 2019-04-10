@@ -13,14 +13,20 @@ npm install --save adogis
 ```
 import {adogis} from 'adogis';
 
-let adogis = new Adogis("3.27", [{
-    url: "https://www.test.com/arcgis/rest/services/test/MapServer",
-    type: "ArcGISDynamicMapServiceLayer",
-    layerOptions: {
-        id: "test",
-        opacity: 0.75
-    }
-}]);
+let adogis = new Adogis({
+    version: "3.26", // optional, default = "3.28"
+    mapDivId: "mapDiv", // optional, if null create new mapDiv and append body automatically
+    basemap: "gray", // optional, default = "osm",
+    center: [0, 40], // optional, default = [29, 41]
+    layers: [{
+        url: "https://www.test.com/arcgis/rest/services/test/MapServer", // required
+        type: "ArcGISDynamicMapServiceLayer", // required
+        layerOptions: {
+            id: "test", // required
+            opacity: 0.75 // optional
+        }
+    }] // optional 
+});
 adogis.createMap();
 
 // for change basemap
