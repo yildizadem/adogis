@@ -4,13 +4,13 @@ An easy way to use Esri JS API
 
 ## Installation
 
-```
+```js
 npm install --save adogis
 ```
 
 ## Usage
 
-```
+```js
 import {Adogis} from 'adogis';
 
 let adogis = new Adogis({

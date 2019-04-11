@@ -1,6 +1,6 @@
 {
   "name": "adogis",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "An easy way to use Esri JS API.",
   "main": "main.js",
   "scripts": {
@@ -14,7 +14,14 @@
   "keywords": [
     "Esri",
     "ArcGIS",
-    "JavaScript"
+    "JavaScript",
+    "gis",
+    "esri js api",
+    "mapping",
+    "map",
+    "easy map",
+    "webpack",
+    "es6"
   ],
   "license": "MIT",
   "dependencies": {
