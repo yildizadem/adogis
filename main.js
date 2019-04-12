@@ -48,25 +48,21 @@ Adogis.prototype.destroyMap = function () {
 
 Adogis.prototype.addMarker = function (params, callback) {
     let self = this;
-    let markerUrl = params.markerUrl || location.pathname.replace(/\/[^/]+$/, "") + "/node_modules/adogis/img/locationMarker.png";
-    let x, y;
-    if (params.x) {
-        x = params.x;
-    } else throw Error("x parameter is required");
-    if (params.y) {
-        y = params.y;
-    } else throw Error("y parameter is required");
+    let { markerUrl, x, y, markerWidth, markerHeight, spatialReference, attributes, infoWindow } = params || {};
+    markerUrl = markerUrl ? markerUrl : location.pathname.replace(/\/[^/]+$/, "") + "/node_modules/adogis/img/locationMarker.png";
+    if (!x) throw Error("x parameter is required");
+    if (!y) throw Error("y parameter is required");
     this.loadModules([
         "esri/symbols/PictureMarkerSymbol",
         "esri/geometry/Point",
         "esri/SpatialReference",
         "esri/graphic", "esri/InfoTemplate"],
         function ({ PictureMarkerSymbol, Point, Graphic, SpatialReference, InfoTemplate }) {
-            let pictureMarkerSymbol = new PictureMarkerSymbol(markerUrl, params.markerWidth || 25, params.markerHeight || 25);
-            let point = new Point(x, y, params.spatialReference || new SpatialReference({ wkid: 4326 }));
+            let pictureMarkerSymbol = new PictureMarkerSymbol(markerUrl, markerWidth || 25, markerHeight || 25);
+            let point = new Point(x, y, spatialReference || new SpatialReference({ wkid: 4326 }));
             let graphic = new Graphic(point, pictureMarkerSymbol);
-            params.attributes && graphic.setAttributes(params.attributes);
-            params.infoWindow && graphic.setInfoTemplate(new InfoTemplate(params.infoWindow.title, params.infoWindow.content));
+            attributes && graphic.setAttributes(attributes);
+            infoWindow && graphic.setInfoTemplate(new InfoTemplate(infoWindow.title, infoWindow.content));
             self.map.graphics.add(graphic);
             callback && callback(graphic);
         });
@@ -74,6 +70,113 @@ Adogis.prototype.addMarker = function (params, callback) {
 
 Adogis.prototype.removeMarker = function (marker) {
     this.map.graphics.remove(marker);
+};
+
+Adogis.prototype.addPoint = function (params, callback) {
+    let self = this;
+    let { x, y, spatialReference, attributes, infoWindow, size, color, outlineColor, outlineWidth } = params || {};
+    if (!x) throw Error("x parameter is required");
+    if (!y) throw Error("y parameter is required");
+    this.loadModules([
+        "esri/symbols/SimpleMarkerSymbol",
+        "esri/geometry/Point",
+        "esri/SpatialReference",
+        "esri/graphic", "esri/InfoTemplate"],
+        function ({ SimpleMarkerSymbol, Point, Graphic, SpatialReference, InfoTemplate }) {
+            let simpleMarkerSymbol = new SimpleMarkerSymbol({
+                "color": color ? [color[0], color[1], color[2], color[3] * 255] : [125, 125, 255, 255],
+                "size": size || 12,
+                "angle": 0,
+                "xoffset": 0,
+                "yoffset": 0,
+                "type": "esriSMS",
+                "style": "esriSMSCircle",
+                "outline": {
+                    "color": outlineColor ? [outlineColor[0], outlineColor[1], outlineColor[2], outlineColor[3] * 255] : [0, 0, 0, 255],
+                    "width": outlineWidth || 1,
+                    "type": "esriSLS",
+                    "style": "esriSLSSolid"
+                }
+            });
+            let point = new Point(x, y, spatialReference || new SpatialReference({ wkid: 4326 }));
+            let graphic = new Graphic(point, simpleMarkerSymbol);
+            attributes && graphic.setAttributes(attributes);
+            infoWindow && graphic.setInfoTemplate(new InfoTemplate(infoWindow.title, infoWindow.content));
+            self.map.graphics.add(graphic);
+            callback && callback(graphic);
+        });
+};
+
+Adogis.prototype.removePoint = function (point) {
+    this.map.graphics.remove(point);
+};
+
+Adogis.prototype.addLine = function (params, callback) {
+    let self = this;
+    let { coordinates, spatialReference, lineStyle, color, width, attributes, infoWindow } = params || {};
+    if (!coordinates) throw Error("coordinates parameter is required. [[x1, y1], [x2, y2], ...]");
+    this.loadModules([
+        "esri/symbols/SimpleLineSymbol",
+        "esri/geometry/Polyline",
+        "esri/SpatialReference",
+        "esri/Color",
+        "esri/graphic", "esri/InfoTemplate"],
+        function ({ SimpleLineSymbol, Polyline, Graphic, Color, SpatialReference, InfoTemplate }) {
+            let simpleLineSymbol = new SimpleLineSymbol(
+                lineStyle ? SimpleLineSymbol[lineStyle] : SimpleLineSymbol.STYLE_SOLID,
+                new Color(color || [0, 0, 0, 1]),
+                width || 3);
+            let polyline = new Polyline(coordinates);
+            polyline.setSpatialReference(spatialReference || new SpatialReference({ wkid: 4326 }))
+            let graphic = new Graphic(polyline, simpleLineSymbol);
+            attributes && graphic.setAttributes(attributes);
+            infoWindow && graphic.setInfoTemplate(new InfoTemplate(infoWindow.title, infoWindow.content));
+            self.map.graphics.add(graphic);
+            callback && callback(graphic);
+        });
+};
+
+Adogis.prototype.removeLine = function (line) {
+    this.map.graphics.remove(line);
+};
+
+Adogis.prototype.addPolygon = function (params, callback) {
+    let self = this;
+    let { coordinates, attributes, infoWindow, polygonStyle, outlineStyle, color, outlineColor, outlineWidth, spatialReference } = params || {};
+    if (!coordinates) throw Error("coordinates parameter is required. [[x1, y1], [x2, y2], ...]");
+    this.loadModules([
+        "esri/symbols/SimpleLineSymbol",
+        "esri/symbols/SimpleFillSymbol",
+        "esri/geometry/Polygon",
+        "esri/SpatialReference",
+        "esri/Color",
+        "esri/graphic", "esri/InfoTemplate"],
+        function ({ SimpleFillSymbol, SimpleLineSymbol, Polygon, Graphic, Color, SpatialReference, InfoTemplate }) {
+            let simpleFillSymbol = new SimpleFillSymbol(
+                polygonStyle ? SimpleFillSymbol[polygonStyle] : SimpleFillSymbol.STYLE_SOLID,
+                new SimpleLineSymbol(
+                    outlineStyle ? SimpleLineSymbol[outlineStyle] : SimpleLineSymbol.STYLE_SOLID,
+                    new Color(outlineColor || [0, 0, 0, 1]),
+                    outlineWidth || 3
+                ),
+                new Color(color || [125, 125, 255, 1])
+            );
+            let polygon = new Polygon(coordinates);
+            polygon.setSpatialReference(spatialReference || new SpatialReference({ wkid: 4326 }))
+            let graphic = new Graphic(polygon, simpleFillSymbol);
+            attributes && graphic.setAttributes(attributes);
+            infoWindow && graphic.setInfoTemplate(new InfoTemplate(infoWindow.title, infoWindow.content));
+            self.map.graphics.add(graphic);
+            callback && callback(graphic);
+        });
+};
+
+Adogis.prototype.removePolygon = function (polygon) {
+    this.map.graphics.remove(polygon);
+}
+
+Adogis.prototype.clearAllGeometries = function () {
+    this.map.graphics.clear()
 };
 
 Adogis.prototype.hideLayer = function (layerId) {
@@ -94,7 +197,7 @@ Adogis.prototype.addLayer = function (layerItem) {
 
 Adogis.prototype.removeLayer = function (layerId) {
     this.map.removeLayer(this.map.getLayer(layerId));
-}
+};
 
 Adogis.prototype.createMap = function () {
     let self = this;

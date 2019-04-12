@@ -1,6 +1,6 @@
 {
   "name": "adogis",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "An easy way to use Esri JS API.",
   "main": "main.js",
   "scripts": {
@@ -21,7 +21,12 @@
     "map",
     "easy map",
     "webpack",
-    "es6"
+    "es6",
+    "layer",
+    "marker",
+    "polyline",
+    "polygon",
+    "point"
   ],
   "license": "MIT",
   "dependencies": {
