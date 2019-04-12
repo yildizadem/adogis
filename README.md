@@ -1,6 +1,6 @@
 # ADOGIS
 
-An easy way to use Esri JS API
+An easy way to use Esri JS API. You can easily create map and add marker, point, line or polygon onto created map. Also if you want to give some information to client about geometries, you can use infoWindow parameter. And also you can change basemap, colors, styles if you do not want to default values. If you create map in runtime or another time you can use events. 
 
 ## Installation
 
