@@ -11,7 +11,7 @@ npm install --save adogis
 ## Usage
 
 ```js
-import {Adogis} from 'adogis';
+import Adogis from 'adogis';
 
 let adogis = new Adogis({
     version: "3.26", // optional, default = "3.28"

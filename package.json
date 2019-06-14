@@ -1,6 +1,6 @@
 {
   "name": "adogis",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "An easy way to use Esri JS API.",
   "main": "main.js",
   "scripts": {
