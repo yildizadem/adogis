@@ -12,7 +12,7 @@ export default class LayerFactory {
                     "esri/layers/VectorTileLayer",
                     "esri/layers/ArcGISDynamicMapServiceLayer",
                     "esri/layers/ArcGISTiledMapServiceLayer",
-                    "esri/layers/FeatureLayer"
+                    "esri/layers/FeatureLayer",
                 ], this.esriOptions)
                 .then(([
                     VectorTileLayer,

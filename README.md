@@ -14,7 +14,7 @@ npm install --save adogis
 import Adogis from 'adogis';
 
 let adogis = new Adogis({
-    version: "3.26", // optional, default = "3.28"
+    version: "3.26", // optional, default = "3.29"
     mapDivId: "mapDiv", // optional, if null create new mapDiv and append body automatically
     basemap: "gray", // optional, default = "osm",
     center: [0, 40], // optional, default = [29, 41]

@@ -15,7 +15,7 @@ export default class Adogis {
         this.map = null;
         this.mapDiv = mapDivId ? $(`#${mapDivId}`) : null;
         this.layers = layers || [];
-        this.version = version || "3.28";
+        this.version = version || "3.29";
         this.defaultBasemap = basemap || "osm";
         this.defaultCenter = center || [29, 41];
         this.esriOptions = {
